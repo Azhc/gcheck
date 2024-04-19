@@ -60,10 +60,10 @@ if __name__ == '__main__':
             # else:
             #     message_status = "签到失败，请检查..."
 
-            # if leftdays is not None:
-            #     message_days = f"{leftdays} 天"
-            # else:
-            #     message_days = "无法获取剩余天数信息"
+            if leftdays is not None:
+                message_days = f"{leftdays} 天"
+            else:
+                message_days = "无法获取剩余天数信息"
         else:
             email = ""
             message_status = "签到请求url失败, 请检查..."
