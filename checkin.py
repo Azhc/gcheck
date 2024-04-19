@@ -30,8 +30,8 @@ if __name__ == '__main__':
         'token': 'glados.one'
     }
 
-    message_status = ""
     for cookie in cookies:
+        message_status = ""
         checkin = requests.post(url, headers={'cookie': cookie, 'referer': referer, 'origin': origin,
                                 'user-agent': useragent, 'content-type': 'application/json;charset=UTF-8'}, data=json.dumps(payload))
         state = requests.get(url2, headers={
