@@ -40,7 +40,8 @@ if __name__ == '__main__':
             # 解析返回的json数据
             result = checkin.json()     
             # 获取签到结果
-            status = result.get('message')
+            message = result.get('message')
+            points = result.get('points')
 
             # 获取账号当前状态
             result = state.json()
@@ -49,19 +50,19 @@ if __name__ == '__main__':
             # 获取账号email
             email = result['data']['email']
 
-            if status == "Checkin! Get 1 Day":
-                success += 1
-                message_status = "签到成功，会员天数 + 1"
-            elif status == "Please Try Tomorrow":
-                message_status = "今日已签到"
-            else:
-                fail += 1
-                message_status = "签到失败，请检查..."
+            message_status+= f"邮箱：{email},返回信息：{message}，获取点数为：{points}\n"
+            # if status == "Checkin! Get 1 Day":
+            #     success += 1
+            #     message_status = "签到成功，会员天数 + 1"
+            # elif status == "Please Try Tomorrow":
+            #     message_status = "今日已签到"
+            # else:
+            #     message_status = "签到失败，请检查..."
 
-            if leftdays is not None:
-                message_days = f"{leftdays} 天"
-            else:
-                message_days = "无法获取剩余天数信息"
+            # if leftdays is not None:
+            #     message_days = f"{leftdays} 天"
+            # else:
+            #     message_days = "无法获取剩余天数信息"
         else:
             email = ""
             message_status = "签到请求url失败, 请检查..."
@@ -79,7 +80,7 @@ if __name__ == '__main__':
      # --------------------------------------------------------------------------------------------------------#
     print("sendContent:" + "\n", sendContent)
     if sckey != "":
-        title += f': 成功{success},失败{fail}'
+        title += f': 签到情况'
         plusurl = f"http://www.pushplus.plus/send?token={sckey}&title={title}&content={sendContent}"
         r = requests.get(plusurl)
         print(r.status_code)
